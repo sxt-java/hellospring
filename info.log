@@ -1,0 +1,3 @@
+[INFO] [2018-07-17 11:22:10] org.springframework.context.support.AbstractApplicationContext.prepareRefresh(573) | Refreshing org.springframework.context.support.ClassPathXmlApplicationContext@3d82c5f3: startup date [Tue Jul 17 11:22:10 CST 2018]; root of context hierarchy
+[INFO] [2018-07-17 11:22:10] org.springframework.beans.factory.xml.XmlBeanDefinitionReader.loadBeanDefinitions(317) | Loading XML bean definitions from class path resource [aspect.xml]
+[INFO] [2018-07-17 11:22:12] com.fix.spring.mvctest.service.StudentServiceImpl.addStudent(26) | -------注册成功------

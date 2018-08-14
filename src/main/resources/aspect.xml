@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xmlns:aop="http://www.springframework.org/schema/aop"
+xmlns:tx="http://www.springframework.org/schema/tx"
+xmlns:mvc="http://www.springframework.org/schema/mvc"
+xmlns:context="http://www.springframework.org/schema/context"
+xsi:schemaLocation="
+       http://www.springframework.org/schema/beans 
+       http://www.springframework.org/schema/beans/spring-beans-4.2.xsd
+       http://www.springframework.org/schema/tx 
+       http://www.springframework.org/schema/tx/spring-tx-4.2.xsd
+       http://www.springframework.org/schema/mvc 
+       http://www.springframework.org/schema/mvc/spring-mvc-4.2.xsd
+       http://www.springframework.org/schema/context
+       http://www.springframework.org/schema/context/spring-context-4.2.xsd
+        http://www.springframework.org/schema/aop
+       http://www.springframework.org/schema/aop/spring-aop-4.2.xsd">
+      
+      
+    <!-- 配置dao实现 -->
+    <bean id="studentDao" class="com.fix.spring.mvctest.dao.StudentDaoImpl"/>
+    <!-- 配置servive实现 -->
+    <bean id="studentService" class="com.fix.spring.mvctest.service.StudentServiceImpl">
+        <property name="studentDao" ref="studentDao"/>      
+    </bean>
+    
+    <!-- 准备通知方法所属的对象 -->
+    <bean id="policeAspect" class="com.fix.spring.aspect.PoliceAspect"/>
+    <bean id="aroundAspect" class="com.fix.spring.aspect.AroundAspect"/>
+    
+     <!-- aop配置 -->
+    <aop:config>
+         <!-- 定义切入点(指定需要增加新功能的范围) -->
+         <aop:pointcut  id="servicePointcut" expression="execution(* com.fix.spring.mvctest.service.*.add*(..))"/>
+         <!-- 定义切面 -->
+         <aop:aspect ref="policeAspect">
+             <!-- 前置增强/前置通知      
+             <aop:before method="check" pointcut-ref="servicePointcut"/>
+             <aop:after method="show"  pointcut-ref="servicePointcut"/>             
+             <aop:after-throwing method="hasException"  pointcut-ref="servicePointcut" throwing="ex"/>    
+              -->       
+         </aop:aspect>
+         
+         <aop:aspect ref="aroundAspect" >
+            <aop:around method="test"  pointcut-ref="servicePointcut"/>
+         </aop:aspect>
+    </aop:config>
+   
+	  
+    
+</beans>
